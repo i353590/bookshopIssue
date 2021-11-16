@@ -1,0 +1,83 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "cds watch",
+      "command": "cds",
+      "args": [
+        "watch"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "type": "shell",
+      "label": "cds run",
+      "command": "cds",
+      "args": [
+        "run",
+        "--with-mocks",
+        "--in-memory?"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "cds-deploy-bookshop-my.db",
+      "type": "shell",
+      "command": "cds",
+      "args": [
+        "deploy",
+        "--to",
+        "sqlite:my.db",
+        "--no-save"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": [
+        "$cap-sqlite-bind-handler"
+      ]
+    },
+    {
+      "label": "cds-deploy-to-hana-bookshop-bookshop-test-instance",
+      "type": "shell",
+      "command": "cds",
+      "args": [
+        "deploy",
+        "--to",
+        "hana:bookshop-test-instance",
+        "--no-save",
+        "--tunnel-address",
+        "0.0.0.0:30041"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": [
+        "$cap-hdi-bind-handler"
+      ]
+    },
+    {
+      "label": "openChiselTunnerFor-bookshop-test-instance",
+      "type": "shell",
+      "command": "chisel",
+      "isBackground": true,
+      "problemMatcher": "$chisel-client",
+      "args": [
+        "client",
+        "--auth",
+        "chisel-devx:68ec8dccf96237519199ea2029a02333",
+        "https://chisel01769eda-4790-45e8-9333-39e50b6c8500.cfapps.sap.hana.ondemand.com",
+        "30041:10.253.108.214:30041"
+      ]
+    }
+  ]
+}
